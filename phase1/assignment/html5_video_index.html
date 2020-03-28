@@ -11,45 +11,53 @@
     
     
 </head>
-<body>
-  <div>
-    <div style="text-align:left;width:500px;" > 
-        <video id="myVideo" width="500" style="border:2px solid green">
-          <source src="./video.mp4" type="video/mp4">
+<body style="text-align: center;">
+  <div style="float:left; background-color: black;">
+    <div > 
+        <video id="myVideo" width="460" height="300" style="border:2px solid black">
+          <source src="./video1.mp4" type="video/mp4">
         </video>
     </div> 
+    
+    
     <div >
-      <span id="current">Current:</span>
+      <span id="current" style="color: white;">Current:</span>
       <span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <span id="loadingPct" ></span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span id="loadingPct" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
-      <span id="duration">Total:</span>
+      <span id="duration" style="color: white;">Total:</span>
     </div>
-    <span id="completedFlag"></span>
-    <div class="progress progress-striped active" style="width:500px">
+    <span id="completedFlag" style="color: white;"></span>
+    <div class="progress progress-striped active" style="width:460px">
       <span id="myProgressbar" class="progress-bar progress-bar-success"  role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" onclick="myProgress()"     >
       </span>	   
     </div>
-    <div style="text-align:left;width:600px;" >
-        <button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-lg" onclick="playVideo()"></button>
-        <button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-lg" onclick="pauseVideo()"></button></button>
-        <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-lg" onclick="volumeUp()"></button></button>
-        <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-lg" onclick="volumeDown()"></button></button>
-        <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-lg" onclick="reloadVideo()"></button></button>
-        <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-lg" onclick="muteVideo()"></button>
-        <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-lg" onclick="like()"></button>
+    <div style="text-align:left;width:460px; border:10px solid black;" >
+        <button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-default" onclick="playVideo()"></button>
+        <button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-default" onclick="pauseVideo()"></button></button>
+        <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-default" onclick="volumeUp()"></button></button>
+        <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-default" onclick="volumeDown()"></button></button>
+        <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-default" onclick="reloadVideo()"></button></button>
+        <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-default" onclick="muteVideo()"></button>
+        <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-default" onclick="like()"></button>
         <span id="like" style="color: green;"></span>
-        <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-lg" onclick="unlike()"></button>
+        <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-default" onclick="unlike()"></button>
         <span id="unlike" style="color: red;"></span>
-        <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-lg" onclick="saveData()"></button>
+        <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-default" onclick="saveData()"></button>
         <!-- <span id="unlike" style="color: red;">pls save like/unlike data before you leave</span> -->
     </div>
     
+  </div> 
+  <div style="float:left;width:460px;text-align: left;">
+    
+    <ul class="list-group">
+      <li style="background-color: black;color: white;" value="./video1.mp4" class="list-group-item" width="450">video1</li>
+      <li style="background-color: black;color: white;" value="./video2.mp4" class="list-group-item" width="450">video2</li>
+      <li style="background-color: black;color: white;" value="./video3.mp4" class="list-group-item" width="450">video3</li>
+    </ul>
   </div> 
 </body>
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -65,14 +73,40 @@
     $("#unlike").text(unlikeCount);
   }
 
-  
-  
-
   var myVideo=document.getElementById("myVideo"); 
   var playBtn=document.getElementById("playBtn"); 
   var pauseBtn=document.getElementById("pauseBtn"); 
   let vol = myVideo.volume; 
   let isMute = myVideo.muted
+
+  var video = document.getElementById("video");
+  var lis = document.getElementsByTagName("li");
+  var vLen = lis.length; 
+  var url = [];
+  var aside = document.getElementById("playList");
+  var curr = 1; 
+  // for(var i=0;i<lis.length;i++){
+
+  //         url[i] = lis[i].getAttribute("value");
+
+  // }
+
+  
+  for(var i=0;i<lis.length;i++){
+
+    lis[i].onclick = function(){
+        for(var j=0;j<lis.length;j++){
+            myVideo.setAttribute("src",this.getAttribute("value")); 
+            myVideo.setAttribute('autoplay','autoplay');
+            pauseBtn.disabled=false;
+            playBtn.disabled=true;                
+            curr = j+1;
+
+        }
+    }
+  }  
+
+
 
   $(document).ready(function(){
     
@@ -156,7 +190,7 @@
   { 
     likeCount = Number(likeCount)+1;
     $("#like").text(likeCount);
-    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\FSD_training/\phase1/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
+    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
   } 
 
  
@@ -165,7 +199,7 @@
   { 
     unlikeCount = Number(unlikeCount)+1;
     $("#unlike").text(unlikeCount);
-    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\FSD_training/\phase1/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
+    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
   } 
 
   function saveData() {
