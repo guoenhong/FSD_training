@@ -3,41 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>h5 video demo</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <script >
+      
+   </script>
+    
     
 </head>
 <body>
-    <div style="text-align:left;"> 
-        
+  <div>
+    <div style="text-align:left;width:500px;" > 
         <video id="myVideo" width="500" style="border:2px solid green">
           <source src="./video.mp4" type="video/mp4">
         </video>
-        
     </div> 
-        <div style="align:left;">
-          <ul class="nav navbar-nav">
-            <li ><button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-lg" onclick="playVideo()"></button></li>
-            <li ><button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-lg" onclick="pauseVideo()"></button></button></li>
-            <li ><button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-lg" onclick="volumeUp()"></button></button></li>
-            <li ><button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-lg" onclick="volumeDown()"></button></button></li>
-            <li ><button class="glyphicon glyphicon-repeat ; btn btn-primary btn-lg" onclick="reloadVideo()"></button></button></li>
-            <li><button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-lg" onclick="muteVideo()"></button></li>
-          </ul>
-          <ul>
-            <progress value="0" max="0" id="myProgress"></progress>
-          </ul>
-        </div>
+    <div >
+      <span id="current">Current:</span>
+      <span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span id="loadingPct" ></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span>
+      <span id="duration">Total:</span>
+    </div>
+    <span id="completedFlag"></span>
+    <div class="progress progress-striped active" style="width:500px">
+      <span id="myProgressbar" class="progress-bar progress-bar-success"  role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" onclick="myProgress()"     >
+      </span>	   
+    </div>
+    <div style="text-align:left;width:600px;" >
+        <button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-lg" onclick="playVideo()"></button>
+        <button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-lg" onclick="pauseVideo()"></button></button>
+        <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-lg" onclick="volumeUp()"></button></button>
+        <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-lg" onclick="volumeDown()"></button></button>
+        <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-lg" onclick="reloadVideo()"></button></button>
+        <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-lg" onclick="muteVideo()"></button>
+        <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-lg" onclick="like()"></button>
+        <span id="like" style="color: green;"></span>
+        <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-lg" onclick="unlike()"></button>
+        <span id="unlike" style="color: red;"></span>
+        <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-lg" onclick="saveData()"></button>
+        <!-- <span id="unlike" style="color: red;">pls save like/unlike data before you leave</span> -->
+    </div>
+    
+  </div> 
 </body>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcss.com/FileSaver.js/1.3.8/FileSaver.js"></script>
 <script> 
+  let likeCount=0;
+  let unlikeCount=0;
+  function testJSON(data){
+    likeCount = data.like;
+    unlikeCount = data.unlike;
+    $("#like").text(likeCount);
+    $("#unlike").text(unlikeCount);
+  }
+
+  
+  
+
   var myVideo=document.getElementById("myVideo"); 
   var playBtn=document.getElementById("playBtn"); 
   var pauseBtn=document.getElementById("pauseBtn"); 
   let vol = myVideo.volume; 
   let isMute = myVideo.muted
+
+  $(document).ready(function(){
+    
+    $("#myVideo").on(
+        "timeupdate", 
+        function(event){
+          onTrackedVideoFrame(this.currentTime, this.duration);
+        });
+    });
+  function onTrackedVideoFrame(currentTime, duration){
+  
+      $("#current").text("Current: "+currentTime.toFixed(0)+" s");
+      $("#duration").text("Total: "+duration.toFixed(0)+" s");
+      var a=currentTime/duration;
+      var b=(a*100).toFixed(0)+"%";
+      document.getElementById('myProgressbar').style.width=b;
+      $("#loadingPct").text(b);
+      if(currentTime==duration){
+        $("#completedFlag").text("(play completed)");
+      }
+  }
+
   window.onload=function(){
     pauseBtn.disabled=true;
-    vol=0.5;
+    myVideo.volume=0.5;
+    
   }
   function playVideo()
   { 
@@ -55,6 +116,7 @@
   { 
     if(vol<0.99){
       vol+=0.1;
+      myVideo.volume=vol;
     }
   } 
   
@@ -62,6 +124,7 @@
   { 
     if(vol>0.2){
       vol=vol-0.1;
+      myVideo.volume=vol;
     }
   } 
   
@@ -69,6 +132,9 @@
   { 
     myVideo.load(); 
     myVideo.play();
+    pauseBtn.disabled=false;
+    playBtn.disabled=true;
+    myVideo.volume=0.5;
   } 
 
   function muteVideo()
@@ -83,10 +149,31 @@
 
   function myProgress()
   {
-      pro.max=myVideo.duration;
-      pro.value=myVideo.currentTime;
+      $("#myProgressbar").max=myVideo.duration;
+  }
+
+  function like()
+  { 
+    likeCount = Number(likeCount)+1;
+    $("#like").text(likeCount);
+    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\FSD_training/\phase1/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
+  } 
+
+ 
+
+  function unlike()
+  { 
+    unlikeCount = Number(unlikeCount)+1;
+    $("#unlike").text(unlikeCount);
+    confirm("sorry, because of no server, so you need save like/unlike data to local storage, please click the right red save button, and save the json file to path 'xxx/\FSD_training/\phase1/\assignment', then delete the last version 'like_unlike.json' file and rename your save file to 'like_unlike.json', thanks. If you do not, your views on this video cannot be retained! ")
+  } 
+
+  function saveData() {
+    let data = "testJSON({like:"+likeCount+",unlike:"+unlikeCount+"})";
+    // var content = JSON.stringify(data);
+    var blob = new Blob([data], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, "like_unlike.json"); 
   }
 </script> 
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="./like_unlike.json?callback=testJSON"></script>
 </html>
