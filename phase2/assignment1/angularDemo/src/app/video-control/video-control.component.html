@@ -1,15 +1,29 @@
-
+<div >
+  <span id="current" style="color: white;">Current:</span>
+  <span>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span id="loadingPct" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+  <span id="duration" style="color: white;">Total:</span>
+</div>
+<span id="completedFlag" style="color: white;"></span>
+<div class="progress progress-striped active" style="width:460px">
+  <span id="myProgressbar" class="progress-bar progress-bar-success"  role="progressbar"  aria-valuenow="" aria-valuemin="0" aria-valuemax="100" onclick="myProgress()"     >
+  </span>	   
+</div>
   <div style="text-align:left;width:460px; border:10px solid black;" >
       <button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-default" (click)="playVideo()"></button>
       <button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-default" (click)="pauseVideo()"></button>
-      <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-default" onclick="volumeUp()"></button>
-      <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-default" onclick="volumeDown()"></button>
-      <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-default" onclick="reloadVideo()"></button>
-      <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-default" onclick="muteVideo()"></button>
-      <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-default" onclick="like()"></button>
+      <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-default" (click)="volumeUp()"></button>
+      <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-default" (click)="volumeDown()"></button>
+      <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-default" (click)="reloadVideo()"></button>
+      <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-default" (click)="muteVideo()"></button>
+      <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-default" (click)="like()"></button>
       <span id="like" style="color: green;"></span>
-      <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-default" onclick="unlike()"></button>
+      <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-default" (click)="unlike()"></button>
       <span id="unlike" style="color: red;"></span>
-      <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-default" onclick="saveData()"></button>
+      <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-default" (click)="saveData()"></button>
       <!-- <span id="unlike" style="color: red;">pls save like/unlike data before you leave</span> -->
   </div>

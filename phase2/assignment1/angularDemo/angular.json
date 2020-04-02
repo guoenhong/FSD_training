@@ -26,8 +26,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -120,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angularDemo"
+    }
+  },
+  "defaultProject": "angularDemo",
+  "cli": {
+    "analytics": "e7e8404d-a705-457b-be8e-46d4c0c817bc"
+  }
 }
