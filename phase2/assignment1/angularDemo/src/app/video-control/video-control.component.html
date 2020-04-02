@@ -1,0 +1,15 @@
+
+  <div style="text-align:left;width:460px; border:10px solid black;" >
+      <button id="playBtn" class="glyphicon glyphicon-play ; btn btn-primary btn-default" (click)="playVideo()"></button>
+      <button id="pauseBtn" class="glyphicon glyphicon-pause ; btn btn-primary btn-default" (click)="pauseVideo()"></button>
+      <button class="glyphicon glyphicon-volume-up ; btn btn-primary btn-default" onclick="volumeUp()"></button>
+      <button class="glyphicon glyphicon-volume-down ; btn btn-primary btn-default" onclick="volumeDown()"></button>
+      <button class="glyphicon glyphicon-repeat ; btn btn-primary btn-default" onclick="reloadVideo()"></button>
+      <button id="muteBtn"class="glyphicon glyphicon-volume-off ; btn btn-primary btn-default" onclick="muteVideo()"></button>
+      <button class="glyphicon glyphicon-hand-up ; btn btn-primary btn-default" onclick="like()"></button>
+      <span id="like" style="color: green;"></span>
+      <button class="glyphicon glyphicon-hand-down ; btn btn-primary btn-default" onclick="unlike()"></button>
+      <span id="unlike" style="color: red;"></span>
+      <button title = "pls save like/unlike data before you leave" class="glyphicon glyphicon-floppy-disk ; btn btn-danger btn-default" onclick="saveData()"></button>
+      <!-- <span id="unlike" style="color: red;">pls save like/unlike data before you leave</span> -->
+  </div>
