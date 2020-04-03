@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { VideoControlComponent } from './video-control/video-control.component';
 import { VideoPlaylistComponent } from './video-playlist/video-playlist.component';
 import { TrustVideoUrlPipe } from './video-player/trustVideoUrl.pipe';
+import { VideoUrlManagementComponent } from './video-url-management/video-url-management.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,12 @@ import { TrustVideoUrlPipe } from './video-player/trustVideoUrl.pipe';
     VideoPlayerComponent,
     VideoControlComponent,
     VideoPlaylistComponent,
-    TrustVideoUrlPipe
+    TrustVideoUrlPipe,
+    VideoUrlManagementComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
