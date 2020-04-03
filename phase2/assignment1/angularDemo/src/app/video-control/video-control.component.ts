@@ -106,8 +106,8 @@ export class VideoControlComponent implements OnInit {
     }
     this.myVideo.muted = isMute;
   }
-  saveData(): any {
-  }
+  /* saveData(): any {
+  } */
   like(): void {
     const like: HTMLSpanElement = document.getElementById('like') as HTMLSpanElement;
     this.likeCount = Number(this.likeCount)+1;
