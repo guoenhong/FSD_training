@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <p>更新水果价格</p>
+水果id：<input id="fruitName" type="text" name="fruitName"><br>
+价格：<input id="fruitPrice" type="text" name="fruitPrice"><br>
+<button id="postBtn">add</button>
+
+
+</body>
+<script>
+$("#postBtn").click(function(){
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:3000/vedios',
+        data: {
+            title:  $("#fruitName").val(),
+            url: $("#fruitPrice").val()
+        },
+        success: function(data){
+            console.log("post success")
+        },
+        error:function(){
+            alert("post error")
+        }
+    })
+})
+</script>
+</html>

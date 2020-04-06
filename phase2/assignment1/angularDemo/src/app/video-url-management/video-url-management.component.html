@@ -1,14 +1,15 @@
 <div class="col-md-6">
     <div class="form-group">
-        <label for="exampleInputEmail1">Title:</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+        <label >Title:</label>
+        <input type="text" class="form-control" id="title" placeholder="Title">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Youtube URL:</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label >Youtube URL:</label>
+        <input type="text" class="form-control" id="youURL" placeholder="Youtube URL">
     </div>
 
-    <button class="btn btn-default" (click)="addVideoDetails()">Add Video</button>
+    <button class="btn btn-default" id='addBtn' (click)="addVideoDetails()">Add Video</button>
+    <button class="btn btn-default" id='editConfirmBtn'(click)="editVideoConfirm()" disabled=true>Edit Video Confirm</button>
 
 </div>
 <div class="col-md-12">
