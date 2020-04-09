@@ -1,0 +1,1 @@
+create table userInfo(name varchar(20) not null, email varchar ,username varchar primary key, password varchar);
