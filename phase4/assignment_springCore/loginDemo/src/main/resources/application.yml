@@ -8,5 +8,10 @@ spring:
       - classpath:sql/schema.sql
     data:
       - classpath:sql/initInsert.sql
+  thymeleaf:
+    #mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
 mybatis:
   type-aliases-package: com.example.demo.pojo

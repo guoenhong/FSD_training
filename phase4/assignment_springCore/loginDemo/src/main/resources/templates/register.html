@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <span style="color:red;" th:if="${errMsg}">[[${errMsg}]]</span>
+</div>
+<h2>pls register</h2>
+<form action="#" th:action="@{/addUser}" th:object="${userInfo}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}"/></td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" th:field="*{username}"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="text" th:field="*{password}"/></td>
+        </tr>
+        <tr>
+            <td>
+                <img id="captcha_img" onclick="refresh()" src="/kaptcha"/>
+
+            </td>
+            <td>
+                <button type="button"  onclick="refresh()" class="glyphicon glyphicon-repeat"></button>
+                <input type="text" placeholder="Enter Captcha" name="verifyCodeActual" id="codeInput"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" id="register" >Register</button>&nbsp;&nbsp;&nbsp;
+
+            </td>
+            <td>
+                <button type="button" id="reset" onClick="resetInfo()">Reset</button>
+            </td>
+
+        </tr>
+    </table>
+
+
+</form>
+
+
+</body>
+<script th:inline="javascript">
+/*<![CDATA[*/
+window.onload=function(){
+      document.getElementById('captcha_img').src="/kaptcha?"+Math.random();
+    }
+
+
+    function resetInfo(){
+        var inputs = document.getElementsByTagName('input');
+        for(var i=0;i<=inputs.length;i++){
+
+            inputs[i].value="";
+        }
+    }
+     function refresh() {
+            document.getElementById('captcha_img').src="/kaptcha?"+Math.random();
+        }
+/*]]>*/
+</script>
+
+
+</html>
