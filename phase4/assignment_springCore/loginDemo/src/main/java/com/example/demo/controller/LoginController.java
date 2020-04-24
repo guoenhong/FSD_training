@@ -3,21 +3,20 @@ package com.example.demo.controller;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.pojo.UserInfo;
 import com.example.demo.utils.CodeUtil;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class LoginController {
     @Autowired
     private UserMapper userMapper;
-
 
     @RequestMapping("/login")
     public String login(Model model){
@@ -100,6 +99,7 @@ public class LoginController {
     }
 
     @RequestMapping("/update")
+    @PreAuthorize("hasRole('ROLE_LOGGIN')")
     public String update(UserInfo userInfo, Model model){
         if(userInfo.getUsername()!=null){
             UserInfo findUser = userMapper.selectByUsername(userInfo.getUsername());
@@ -109,12 +109,14 @@ public class LoginController {
     }
 
     @RequestMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String update(){
 
         return "admin";
     }
 
     @RequestMapping("/updateUser")
+    @PreAuthorize("hasRole('ROLE_LOGGIN')")
     public String updateUser(UserInfo user, HttpServletRequest req, Model model) {
         String msg = "";
         if (user.getUsername() != null) {
